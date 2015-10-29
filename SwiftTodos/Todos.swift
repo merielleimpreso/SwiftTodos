@@ -112,13 +112,16 @@ public class Todos: UITableViewController, NSFetchedResultsControllerDelegate, M
     
     public func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch type {
-        case .Move: if indexPath!.isEqual(newIndexPath!) == false { self.tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!) }
-        case .Delete: print("Success > Delete"); self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-        case .Insert: print("Success > Insert"); self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-        case .Update: print("Success > Update"); self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
+        case .Move: print("> Move"); if indexPath!.isEqual(newIndexPath!) == false {
+            self.tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!)
+        } else {
+            self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
+            }
+        case .Delete: print("> Delete"); self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
+        case .Insert: print("> Insert"); self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
+        case .Update: print("> Update"); self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
         }
     }
-    
     //
     // MeteorCoreDataCollectionDelegate methods
     //

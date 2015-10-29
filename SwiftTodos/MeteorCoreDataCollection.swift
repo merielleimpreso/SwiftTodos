@@ -1,4 +1,4 @@
-/*
+
 import UIKit
 import SwiftDDP
 import CoreData
@@ -318,4 +318,3 @@ public class MeteorCoreDataCollection:Collection {
 
     
 }
-*/
