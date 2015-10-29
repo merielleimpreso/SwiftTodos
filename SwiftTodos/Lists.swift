@@ -1,6 +1,7 @@
 
 import UIKit
 import CoreData
+import SwiftDDP
 
 //
 // This class defines the table of lists

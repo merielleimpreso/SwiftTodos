@@ -1,7 +1,7 @@
 
 import UIKit
 import CoreData
-
+import SwiftDDP
 
 // Allows us to attach the list _id to the cell
 public class TodoCell:UITableViewCell {
