@@ -9,19 +9,19 @@ public class MeteorCoreDataStack:NSObject {
     }
     
     deinit {
-        
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
+    
     // MARK: - Core Data stack
     
     lazy var applicationDocumentsDirectory: NSURL = {
-        // The directory the application uses to store the Core Data store file. This code uses a directory named "io.houndfish.CoreDataTest" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         return urls[urls.count-1]
         }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("Todo", withExtension: "momd")!
+        let modelURL = NSBundle.mainBundle().URLForResource("MeteorCoreData", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
         }()
     
@@ -51,18 +51,20 @@ public class MeteorCoreDataStack:NSObject {
     }
     
     lazy var managedObjectContextMainQueue: NSManagedObjectContext = {
-        // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
         let coordinator = self.persistentStoreCoordinator
         var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
+        managedObjectContext.undoManager = NSUndoManager()
         return managedObjectContext
         }()
     
     lazy var managedObjectContextPrivateQueue: NSManagedObjectContext = {
-        // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
         let coordinator = self.persistentStoreCoordinator
         var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
+        managedObjectContext.undoManager = NSUndoManager()
         return managedObjectContext
         }()
+    
+    
 }

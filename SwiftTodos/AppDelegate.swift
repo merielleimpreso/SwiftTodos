@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "lists_loaded", object: nil))
             }
         }
-        
+        print("Application Did Finish Launching")
         return true
     }
     

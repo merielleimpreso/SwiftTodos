@@ -55,13 +55,14 @@ public class MeteorCoreDataCollection:Collection {
     
     var entityName:String!
     var delegate:MeteorCoreDataCollectionDelegate?
+    private let stack = MeteorCoreData.stack
     
     private var changeLog = [Int:MeteorCollectionChange]()
     
     init(collectionName:String, entityName:String) {
         super.init(name: collectionName)
         self.entityName = entityName
-        print("Initing!")
+        print("Initializing Meteor Core Data Collection \(self.entityName)")
     }
     
     deinit {
@@ -69,11 +70,10 @@ public class MeteorCoreDataCollection:Collection {
     
     
     var managedObjectContext:NSManagedObjectContext {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if NSThread.isMainThread() {
-            return appDelegate.managedObjectContextMainQueue
+            return stack.managedObjectContextMainQueue
         }
-        return appDelegate.managedObjectContextPrivateQueue
+        return stack.managedObjectContextPrivateQueue
     }
     
     private func newObject() -> NSManagedObject {
@@ -164,21 +164,22 @@ public class MeteorCoreDataCollection:Collection {
     //
     
     func insert(fields:NSDictionary) {
-        let object = self.newObject()
-        if let id = fields.objectForKey("_id") {
-            object.setValue(id, forKey: "id")
-        } else {
-            let id = self.client.getId()
-            object.setValue(id, forKey: "id")
-        }
-        object.setValue(self.name, forKey: "collection")
-        self.delegate?.document(willBeCreatedWith: fields, forObject: object)
-        try! self.managedObjectContext.save()
-        
-        self.client.outgoingData.addOperationWithBlock() {
+        client.outgoingData.addOperationWithBlock() {
+            let object = self.newObject()
+            if let id = fields.objectForKey("_id") {
+                object.setValue(id, forKey: "id")
+            } else {
+                let id = self.client.getId()
+                object.setValue(id, forKey: "id")
+            }
+            object.setValue(self.name, forKey: "collection")
+            self.delegate?.document(willBeCreatedWith: fields, forObject: object)
+            try! self.managedObjectContext.save()
+            
             let result = self.client.insert(sync: self.name, document: [fields])
             if result.error != nil {
-                log.error("Ooof. Insert failed. \(result.error)")
+                self.managedObjectContext.deleteObject(object)
+                try! self.managedObjectContext.save()
             }
         }
     }
@@ -192,24 +193,22 @@ public class MeteorCoreDataCollection:Collection {
     //
     
     public func update(id:String, fields:NSDictionary, local:Bool) {
-        if let object = self.findOne(id) {
-            
-            let change = MeteorCollectionChange(id: id, collection: self.name, fields: fields, cleared: nil)
-            self.changeLog[change.hashValue] = change
-            
-            self.delegate?.document(willBeUpdatedWith: fields, cleared: nil, forObject: object)
-            do {
-                try self.managedObjectContext.save()
-            } catch let error {
-                log.error("Unable to make changes to \(id) \(fields). \(error)")
-            }
-            if local == false {
-                self.client.outgoingData.addOperationWithBlock() {
+        
+        client.outgoingData.addOperationWithBlock() {
+            if let object = self.findOne(id) {
+                
+                self.managedObjectContext.undoManager?.beginUndoGrouping()
+                let change = MeteorCollectionChange(id: id, collection: self.name, fields: fields, cleared: nil)
+                self.changeLog[change.hashValue] = change
+                self.delegate?.document(willBeUpdatedWith: fields, cleared: nil, forObject: object)
+                try! self.managedObjectContext.save()
+                self.managedObjectContext.undoManager?.endUndoGrouping()
+                
+                if local == false {
                     let result = self.client.update(sync: self.name, document: [["_id":id], ["$set":fields]])
                     if result.error != nil {
-                        log.error("Error updating document \(id) on server. \(result.error)")
-                    } else {
-                        log.debug("Update result: \(result.result!)")
+                        self.managedObjectContext.undoManager?.undoNestedGroup()
+                        try! self.managedObjectContext.save()
                     }
                 }
             }
@@ -233,32 +232,38 @@ public class MeteorCoreDataCollection:Collection {
     }
     
     func remove(withId id:String) {
-        if let document = self.findOne(id) {
-            self.remove(withObject: document)
+        client.outgoingData.addOperationWithBlock() {
+            if let document = self.findOne(id) {
+                self.remove(withObject: document)
+            }
         }
     }
     
     func remove(withId id:String, local:Bool){
-        if let document = self.findOne(id) {
-            self.remove(withObject: document, local:local)
+        client.outgoingData.addOperationWithBlock() {
+            if let document = self.findOne(id) {
+                self.remove(withObject: document, local:local)
+            }
         }
-        
     }
     
     // Local delete signals when the delete originates from the server; 
     // In that case, the delete should only be processed locally, and no 
     // message regarding the delete should be sent to the server
     func remove(withObject document:NSManagedObject, local:Bool) {
+        
+        managedObjectContext.undoManager?.beginUndoGrouping()
         let id = document.valueForKey("id")
-        self.managedObjectContext.deleteObject(document)
+        managedObjectContext.deleteObject(document)
         try! self.managedObjectContext.save()
+        managedObjectContext.undoManager?.endUndoGrouping()
+        
         if local == false {
-            self.client.outgoingData.addOperationWithBlock() {
-                if let _ = id {
-                    let result = self.client.remove(sync: self.name, document: NSArray(arrayLiteral: ["_id":id!]))
-                    if result.error != nil {
-                        log.error("Error deleting document \(id) on server. \(result.error)")
-                    }
+            if let _ = id {
+                let result = self.client.remove(sync: self.name, document: NSArray(arrayLiteral: ["_id":id!]))
+                if result.error != nil {
+                    managedObjectContext.undoManager?.undoNestedGroup()
+                    try! managedObjectContext.save()
                 }
             }
         }
@@ -271,11 +276,7 @@ public class MeteorCoreDataCollection:Collection {
             object.setValue(collection, forKey: "collection")
             
             if let _ = self.delegate?.document(willBeCreatedWith: fields, forObject: object) {
-                do {
-                    try self.managedObjectContext.save()
-                } catch let error {
-                    log.error("Unable to insert record into managed context: \(error)")
-                }
+                try! managedObjectContext.save()
             }
         } else {
             log.info("Object \(collection) \(id) already exists in the database")
@@ -295,12 +296,7 @@ public class MeteorCoreDataCollection:Collection {
     
         if let object = self.findOne(id) {
             if let _ = self.delegate?.document(willBeUpdatedWith: fields, cleared: cleared, forObject: object) {
-                
-                do {
-                    try self.managedObjectContext.save()
-                } catch let error {
-                    log.error("Unable to update document \(collection) \(id). \(error)")
-                }
+                try! self.managedObjectContext.save()
             }
         }
         
