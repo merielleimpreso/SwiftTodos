@@ -57,6 +57,15 @@ public class MeteorCoreDataCollection:Collection {
     var delegate:MeteorCoreDataCollectionDelegate?
     private let stack = MeteorCoreData.stack
     
+    private let backgroundQueue:NSOperationQueue = {
+        let queue = NSOperationQueue()
+        queue.name = "MeteorCoreData background queue"
+        // queue.maxConcurrentOperationCount = 1
+        return queue
+    }()
+    
+    private let mainQueue = NSOperationQueue.mainQueue()
+    
     private var changeLog = [Int:MeteorCollectionChange]()
     
     init(collectionName:String, entityName:String) {
@@ -68,12 +77,8 @@ public class MeteorCoreDataCollection:Collection {
     deinit {
     }
     
-    
     var managedObjectContext:NSManagedObjectContext {
-        if NSThread.isMainThread() {
-            return stack.managedObjectContextMainQueue
-        }
-        return stack.managedObjectContextPrivateQueue
+        return stack.managedObjectContext
     }
     
     private func newObject() -> NSManagedObject {
@@ -81,25 +86,6 @@ public class MeteorCoreDataCollection:Collection {
         let object = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
         return object
     }
-    
-    /*
-    private func mergeChangesOnMainQueue(object:NSManagedObject) {
-        let objectId = object.objectID
-        if objectId.temporaryID == true {
-            log.error("Attempting to merge an unsaved object")
-            return
-        }
-        NSOperationQueue.mainQueue().addOperationWithBlock() {
-            do {
-                let mainQueueObject = try self.managedObjectContext.existingObjectWithID(objectId)
-                self.managedObjectContext.refreshObject(mainQueueObject, mergeChanges: true)
-            } catch let error {
-                log.error("Error merging changes on the main queue: \(error)")
-            }
-            self.managedObjectContext.refreshAllObjects()
-        }
-    }
-    */
     
     private func getObjectOnCurrentQueue(objectId:NSManagedObjectID) -> NSManagedObject? {
         do {
@@ -164,7 +150,8 @@ public class MeteorCoreDataCollection:Collection {
     //
     
     func insert(fields:NSDictionary) {
-        client.outgoingData.addOperationWithBlock() {
+        backgroundQueue.addOperationWithBlock() {
+            
             let object = self.newObject()
             if let id = fields.objectForKey("_id") {
                 object.setValue(id, forKey: "id")
@@ -181,6 +168,7 @@ public class MeteorCoreDataCollection:Collection {
                 self.managedObjectContext.deleteObject(object)
                 try! self.managedObjectContext.save()
             }
+            
         }
     }
     
@@ -193,8 +181,8 @@ public class MeteorCoreDataCollection:Collection {
     //
     
     public func update(id:String, fields:NSDictionary, local:Bool) {
-        
-        client.outgoingData.addOperationWithBlock() {
+        backgroundQueue.addOperationWithBlock() {
+
             if let object = self.findOne(id) {
                 
                 self.managedObjectContext.undoManager?.beginUndoGrouping()
@@ -207,6 +195,7 @@ public class MeteorCoreDataCollection:Collection {
                 if local == false {
                     let result = self.client.update(sync: self.name, document: [["_id":id], ["$set":fields]])
                     if result.error != nil {
+                        log.debug("Update rejected. Attempting to rollback changes")
                         self.managedObjectContext.undoManager?.undoNestedGroup()
                         try! self.managedObjectContext.save()
                     }
@@ -235,7 +224,8 @@ public class MeteorCoreDataCollection:Collection {
     // In that case, the delete should only be processed locally, and no 
     // message regarding the delete should be sent to the server
     func remove(withId id:String, local:Bool) {
-        client.outgoingData.addOperationWithBlock() {
+        backgroundQueue.addOperationWithBlock() {
+            
             if let document = self.findOne(id) {
                 self.managedObjectContext.undoManager?.beginUndoGrouping()
                 let id = document.valueForKey("id")
@@ -254,6 +244,7 @@ public class MeteorCoreDataCollection:Collection {
                 }
             }
         }
+        
     }
     
     override public func documentWasAdded(collection:String, id:String, fields:NSDictionary?) {

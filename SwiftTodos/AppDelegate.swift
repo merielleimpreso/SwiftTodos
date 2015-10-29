@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         meteor.logLevel = .Debug
-        let url = "wss://todos.meteor.com/websocket"
+        let url = "wss://swifttodos.meteor.com/websocket"
         meteor.connect(url) { session in
             
             self.meteor.subscribe("publicLists") {

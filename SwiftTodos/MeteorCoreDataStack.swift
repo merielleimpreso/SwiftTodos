@@ -5,7 +5,8 @@ import CoreData
 public class MeteorCoreDataStack:NSObject {
     
     override init() {
-        
+        super.init()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "mergeCoreDataChanges:", name: NSManagedObjectContextDidSaveNotification, object: backgroundContext)
     }
     
     deinit {
@@ -50,21 +51,53 @@ public class MeteorCoreDataStack:NSObject {
         return coordinator
     }
     
-    lazy var managedObjectContextMainQueue: NSManagedObjectContext = {
+    var managedObjectContext:NSManagedObjectContext {
+        if (NSOperationQueue.currentQueue() == NSOperationQueue.mainQueue()) {
+            return self.mainContext
+        }
+        return backgroundContext
+    }
+    
+    
+    lazy var mainContext: NSManagedObjectContext = {
         let coordinator = self.persistentStoreCoordinator
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-        managedObjectContext.persistentStoreCoordinator = coordinator
-        managedObjectContext.undoManager = NSUndoManager()
-        return managedObjectContext
+        var context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        context.persistentStoreCoordinator = coordinator
+        context.undoManager = NSUndoManager()
+        return context
         }()
     
-    lazy var managedObjectContextPrivateQueue: NSManagedObjectContext = {
+    lazy var backgroundContext: NSManagedObjectContext = {
         let coordinator = self.persistentStoreCoordinator
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
-        managedObjectContext.persistentStoreCoordinator = coordinator
-        managedObjectContext.undoManager = NSUndoManager()
-        return managedObjectContext
+        var context = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
+        context.persistentStoreCoordinator = coordinator
+        context.undoManager = NSUndoManager()
+        return context
         }()
     
-    
+    func mergeCoreDataChanges(notification: NSNotification) {
+        let context = notification.object as! NSManagedObjectContext
+        if context === mainContext {
+            log.debug("Merging changes mainQueue > privateQueue")
+            backgroundContext.performBlock() {
+                self.backgroundContext.mergeChangesFromContextDidSaveNotification(notification)
+            }
+        } else if context === backgroundContext {
+            log.debug("Merging changes privateQueue > mainQueue")
+            mainContext.performBlock() {
+                self.mainContext.mergeChangesFromContextDidSaveNotification(notification)
+            }
+        } else {
+            
+            log.debug("Merging changes mainQueue <> privateQueue")
+            backgroundContext.performBlock() {
+                self.backgroundContext.mergeChangesFromContextDidSaveNotification(notification)
+            }
+            
+            mainContext.performBlock() {
+                self.mainContext.mergeChangesFromContextDidSaveNotification(notification)
+            }
+            
+        }
+    }
 }
