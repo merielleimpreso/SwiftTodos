@@ -227,43 +227,30 @@ public class MeteorCoreDataCollection:Collection {
     //
     //
     
-    func remove(withObject document:NSManagedObject) {
-        self.remove(withObject: document, local:false)
-    }
-    
     func remove(withId id:String) {
-        client.outgoingData.addOperationWithBlock() {
-            if let document = self.findOne(id) {
-                self.remove(withObject: document)
-            }
-        }
-    }
-    
-    func remove(withId id:String, local:Bool){
-        client.outgoingData.addOperationWithBlock() {
-            if let document = self.findOne(id) {
-                self.remove(withObject: document, local:local)
-            }
-        }
+        remove(withId: id, local:false)
     }
     
     // Local delete signals when the delete originates from the server; 
     // In that case, the delete should only be processed locally, and no 
     // message regarding the delete should be sent to the server
-    func remove(withObject document:NSManagedObject, local:Bool) {
-        
-        managedObjectContext.undoManager?.beginUndoGrouping()
-        let id = document.valueForKey("id")
-        managedObjectContext.deleteObject(document)
-        try! self.managedObjectContext.save()
-        managedObjectContext.undoManager?.endUndoGrouping()
-        
-        if local == false {
-            if let _ = id {
-                let result = self.client.remove(sync: self.name, document: NSArray(arrayLiteral: ["_id":id!]))
-                if result.error != nil {
-                    managedObjectContext.undoManager?.undoNestedGroup()
-                    try! managedObjectContext.save()
+    func remove(withId id:String, local:Bool) {
+        client.outgoingData.addOperationWithBlock() {
+            if let document = self.findOne(id) {
+                self.managedObjectContext.undoManager?.beginUndoGrouping()
+                let id = document.valueForKey("id")
+                self.managedObjectContext.deleteObject(document)
+                try! self.managedObjectContext.save()
+                self.managedObjectContext.undoManager?.endUndoGrouping()
+                
+                if local == false {
+                    if let _ = id {
+                        let result = self.client.remove(sync: self.name, document: NSArray(arrayLiteral: ["_id":id!]))
+                        if result.error != nil {
+                            self.managedObjectContext.undoManager?.undoNestedGroup()
+                            try! self.managedObjectContext.save()
+                        }
+                    }
                 }
             }
         }

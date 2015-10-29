@@ -65,7 +65,7 @@ public class Todos: UITableViewController, NSFetchedResultsControllerDelegate, M
         }
         return 0
     }
-
+    
     override public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let sections = fetchedResultsController.sections {
             let currentSection = sections[section]
@@ -102,7 +102,8 @@ public class Todos: UITableViewController, NSFetchedResultsControllerDelegate, M
     override public func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
             let object = fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
-            self.todos.remove(withObject: object)
+            let id = object.valueForKey("id") as! String
+            self.todos.remove(withId: id)
         }
     }
     
@@ -122,6 +123,7 @@ public class Todos: UITableViewController, NSFetchedResultsControllerDelegate, M
         case .Update: print("> Update"); self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
         }
     }
+    
     //
     // MeteorCoreDataCollectionDelegate methods
     //

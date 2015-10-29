@@ -82,7 +82,8 @@ class Lists: UITableViewController, NSFetchedResultsControllerDelegate, MeteorCo
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
             let object = fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
-            self.collection.remove(withObject: object)
+            let id = object.valueForKey("id") as! String
+            self.collection.remove(withId: id)
         }
 
     }
