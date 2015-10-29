@@ -1,0 +1,71 @@
+{
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++3A84D12" : 0,
+    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++2FD5EC2" : 0,
+    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++452A292" : 0,
+    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++0F55789" : 0,
+    "482B293479B5ECDB76559A876C925886AD3DC87E+++BF6E05E" : 0,
+    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++D07411C" : 0,
+    "CD1557C3AE966BEDF3490D85F9712687801B146C+++09C8CE6" : 0,
+    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++2BC5D92" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E8523117-65BF-43B0-A421-7B88783C7CEF",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++3A84D12" : "SwiftTodos\/RealmMeteor\/",
+    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++2FD5EC2" : "RealmMeteor\/",
+    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++452A292" : "SwiftTodos\/RealmMeteor\/SwiftDDP\/",
+    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++0F55789" : "SwiftTodos\/SwiftDDP\/",
+    "482B293479B5ECDB76559A876C925886AD3DC87E+++BF6E05E" : "SwiftTodos\/MeteorCoreData\/",
+    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++D07411C" : "RealmMeteor\/SwiftDDP\/",
+    "CD1557C3AE966BEDF3490D85F9712687801B146C+++09C8CE6" : "SwiftTodos\/XCGLogger\/",
+    "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++2BC5D92" : "RealmMeteor\/SwiftDDP\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "SwiftTodos",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "SwiftTodos.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/siegesmund\/MeteorCoreData",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "482B293479B5ECDB76559A876C925886AD3DC87E+++BF6E05E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/siegesmund\/SwiftDDP",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++0F55789"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/siegesmund\/RealmMeteor",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++2BC5D92"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/siegesmund\/RealmMeteor",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++2FD5EC2"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/siegesmund\/RealmMeteor",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++3A84D12"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/siegesmund\/SwiftDDP",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++452A292"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/siegesmund\/SwiftDDP",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8EA5B47AAF181A89417DB4A5B2BB211FCF91F09F+++D07411C"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/DaveWoodCom\/XCGLogger",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CD1557C3AE966BEDF3490D85F9712687801B146C+++09C8CE6"
+    }
+  ]
+}
