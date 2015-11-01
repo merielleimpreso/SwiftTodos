@@ -13,7 +13,7 @@ public class ListCell:UITableViewCell {
 }
 
 
-class Lists: UITableViewController, NSFetchedResultsControllerDelegate, MeteorCoreDataCollectionDelegate {
+class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate {
     
     let meteor = (UIApplication.sharedApplication().delegate as! AppDelegate).meteor
     var collection:MeteorCoreDataCollection = (UIApplication.sharedApplication().delegate as! AppDelegate).lists
@@ -96,6 +96,7 @@ class Lists: UITableViewController, NSFetchedResultsControllerDelegate, MeteorCo
         }
     }
     
+    /*
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch type {
         case .Move: print("> Move"); if indexPath!.isEqual(newIndexPath!) == false {
@@ -108,6 +109,16 @@ class Lists: UITableViewController, NSFetchedResultsControllerDelegate, MeteorCo
         case .Update: print("> Update"); self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
         }
     }
+    
+    
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        self.tableView.beginUpdates()
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        self.tableView.endUpdates()
+    }
+    */
     
     func document(willBeCreatedWith fields: NSDictionary?, forObject object: NSManagedObject) -> NSManagedObject {
         if let data = fields {

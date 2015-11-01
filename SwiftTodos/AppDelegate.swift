@@ -9,8 +9,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let meteor = Meteor.client
     
-    // Define collections once in the app delegate
-    //let lists = RealmCollection<List>(name: "lists")
     let todos = MeteorCoreDataCollection(collectionName: "todos", entityName: "Todo")
     let lists = MeteorCoreDataCollection(collectionName: "lists", entityName: "List")
     

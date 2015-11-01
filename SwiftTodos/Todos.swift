@@ -9,8 +9,7 @@ public class TodoCell:UITableViewCell {
 }
 
 
-public class Todos: UITableViewController, NSFetchedResultsControllerDelegate, MeteorCoreDataCollectionDelegate {
-    
+public class Todos: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate {
     
     let meteor = (UIApplication.sharedApplication().delegate as! AppDelegate).meteor
     
@@ -43,7 +42,6 @@ public class Todos: UITableViewController, NSFetchedResultsControllerDelegate, M
     
     public override func viewDidLoad() {
         todos.delegate = self
-        print("Todos name == \(todos.name)")
     }
     
     @IBOutlet weak var addTaskTextField: UITextField!
@@ -106,27 +104,6 @@ public class Todos: UITableViewController, NSFetchedResultsControllerDelegate, M
             self.todos.remove(withId: id)
         }
     }
-    
-    //
-    // NSFetchedResultsControllerDelegate method
-    //
-    
-    public func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-        switch type {
-        case .Move: print("> Move"); if indexPath!.isEqual(newIndexPath!) == false {
-            self.tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!)
-        } else {
-            self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-            }
-        case .Delete: print("> Delete"); self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-        case .Insert: print("> Insert"); self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-        case .Update: print("> Update"); self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-        }
-    }
-    
-    //
-    // MeteorCoreDataCollectionDelegate methods
-    //
     
     public func document(willBeCreatedWith fields: NSDictionary?, forObject object: NSManagedObject) -> NSManagedObject {
         if let data = fields {
