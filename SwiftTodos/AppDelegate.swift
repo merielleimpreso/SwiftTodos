@@ -4,7 +4,7 @@ import SwiftDDP
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
     let meteor = Meteor.client
@@ -14,23 +14,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        let splitViewController = self.window!.rootViewController as! UISplitViewController
+        splitViewController.preferredDisplayMode = .AllVisible
+        splitViewController.delegate = self
+        
+        // let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
+        // let listViewController = masterNavigationController.topViewController as! Lists
+        
+        
         meteor.logLevel = .Debug
-        let url = "wss://swifttodos.meteor.com/websocket"
-        meteor.connect(url) { session in
-            
-            self.meteor.subscribe("publicLists") {
-                NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "lists_loaded", object: nil))
-            }
-            
-            self.meteor.subscribe("privateLists") {
-                NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: "lists_loaded", object: nil))
-            }
+        let url = "wss://todos.meteor.com/websocket"
+        
+        meteor.resume(url) {
+            self.meteor.subscribe("publicLists")
+            self.meteor.subscribe("privateLists")
         }
+        
         print("Application Did Finish Launching")
         return true
     }
     
-        // MARK: - Core Data Saving support
+    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {
+        if let todosViewController = (secondaryViewController as? UINavigationController)?.topViewController as? Todos {
+            if todosViewController.listId == nil {
+                return true
+            }
+        }
+        return false
+    }
+    
+    // MARK: - Core Data Saving support
     /*
     func saveContext () {
         if managedObjectContext.hasChanges {

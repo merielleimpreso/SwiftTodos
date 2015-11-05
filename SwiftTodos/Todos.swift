@@ -9,17 +9,40 @@ public class TodoCell:UITableViewCell {
 }
 
 
-public class Todos: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate {
+class Todos: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate {
+    
+    @IBOutlet weak var privateButton: UIBarButtonItem!
+    
+    @IBAction func makeListPrivate(sender: UIBarButtonItem) {
+        if let userId = meteor.userId() {
+            
+            if let objectUserId = lists.findOne(listId!)?.valueForKey("userId") as? String where (objectUserId == userId)  {
+                lists.update(listId!, fields: ["userId": "true"], action:"$unset")
+                privateButton.image = UIImage(named: "unlocked_icon")
+            } else {
+                lists.update(listId!, fields: ["userId": userId])
+                privateButton.image = UIImage(named: "locked_icon")
+            }
+            
+        } else {
+            print("You must be logged in to make a list private")
+        }
+    }
     
     let meteor = (UIApplication.sharedApplication().delegate as! AppDelegate).meteor
+    let todos:MeteorCoreDataCollection = (UIApplication.sharedApplication().delegate as! AppDelegate).todos
+    let lists:MeteorCoreDataCollection = (UIApplication.sharedApplication().delegate as! AppDelegate).lists
     
-    public var todos:MeteorCoreDataCollection = (UIApplication.sharedApplication().delegate as! AppDelegate).todos
-    
-    public var listId:String? {
+    var listId:String? {
         didSet {
             meteor.subscribe("todos", params: [listId!])
             try! fetchedResultsController.performFetch()
         }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        //meteor.unsub("todos")
     }
     
     private lazy var predicate:NSPredicate? = {
@@ -29,7 +52,7 @@ public class Todos: MeteorCoreDataTableViewController, MeteorCoreDataCollectionD
         return nil
     }()
     
-    public lazy var fetchedResultsController: NSFetchedResultsController = {
+    lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest(entityName: "Todo")
         let primarySortDescriptor = NSSortDescriptor(key: "id", ascending: true)
         let secondarySortDescriptor = NSSortDescriptor(key: "listId", ascending: false)
@@ -40,7 +63,7 @@ public class Todos: MeteorCoreDataTableViewController, MeteorCoreDataCollectionD
         return frc
     }()
     
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         todos.delegate = self
     }
     
@@ -57,14 +80,14 @@ public class Todos: MeteorCoreDataTableViewController, MeteorCoreDataCollectionD
     
     // MARK: - Table view data source
 
-    override public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if let sections = fetchedResultsController.sections {
             return sections.count
         }
         return 0
     }
     
-    override public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let sections = fetchedResultsController.sections {
             let currentSection = sections[section]
             return currentSection.numberOfObjects
@@ -72,32 +95,31 @@ public class Todos: MeteorCoreDataTableViewController, MeteorCoreDataCollectionD
         return 0
     }
     
-    override public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("todoCell", forIndexPath: indexPath) as! TodoCell
-        let listItem = fetchedResultsController.objectAtIndexPath(indexPath)
-        if let checked = listItem.valueForKey("checked") where checked as! Bool == true {
+        let todo = fetchedResultsController.objectAtIndexPath(indexPath)
+        if let checked = todo.valueForKey("checked") where checked as! Bool == true {
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
         } else {
             cell.accessoryType = UITableViewCellAccessoryType.None
         }
-        cell.textLabel?.text = listItem.valueForKey("text") as? String
+        cell.textLabel?.text = todo.valueForKey("text") as? String
         return cell
     }
     
-    override public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let object = fetchedResultsController.objectAtIndexPath(indexPath)
         let id = object.valueForKey("id") as! String
         let checked = object.valueForKey("checked") as! Bool
         let update = ["checked":!checked]
-        print("Update: \(update)")
         todos.update(id, fields: update)
     }
     
-    override public func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
     
-    override public func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
             let object = fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
             let id = object.valueForKey("id") as! String
@@ -105,7 +127,7 @@ public class Todos: MeteorCoreDataTableViewController, MeteorCoreDataCollectionD
         }
     }
     
-    public func document(willBeCreatedWith fields: NSDictionary?, forObject object: NSManagedObject) -> NSManagedObject {
+    func document(willBeCreatedWith fields: NSDictionary?, forObject object: NSManagedObject) -> NSManagedObject {
         if let data = fields {
             for (key,value) in data {
                 if !key.isEqual("createdAt") && !key.isEqual("_id") {
@@ -113,11 +135,15 @@ public class Todos: MeteorCoreDataTableViewController, MeteorCoreDataCollectionD
                 }
             }
         }
-        object.setValue(false, forKey: "checked")
+        
+        if !(object.valueForKey("checked") is Bool) {
+            object.setValue(false, forKey: "checked")
+        }
+        
         return object
     }
     
-    public func document(willBeUpdatedWith fields: NSDictionary?, cleared: [String]?, forObject object: NSManagedObject) -> NSManagedObject {
+    func document(willBeUpdatedWith fields: NSDictionary?, cleared: [String]?, forObject object: NSManagedObject) -> NSManagedObject {
         if let _ = fields {
             for (key,value) in fields! {
                 object.setValue(value, forKey: key as! String)
@@ -129,7 +155,6 @@ public class Todos: MeteorCoreDataTableViewController, MeteorCoreDataCollectionD
                 object.setNilValueForKey(field)
             }
         }
-        
         return object
     }
 

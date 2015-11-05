@@ -15,9 +15,18 @@ public class ListCell:UITableViewCell {
 
 class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate {
     
+    @IBOutlet weak var loginButton: UIBarButtonItem!
+    
+    @IBAction func loginButtonWasClicked(sender: UIBarButtonItem) {
+        if let _ = meteor.userId() {
+            logoutDialog()
+        } else {
+            self.performSegueWithIdentifier("loginDialog", sender: self)
+        }
+    }
+    
     let meteor = (UIApplication.sharedApplication().delegate as! AppDelegate).meteor
     var collection:MeteorCoreDataCollection = (UIApplication.sharedApplication().delegate as! AppDelegate).lists
-    
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest(entityName: "List")
@@ -29,11 +38,26 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
         return frc
         }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         collection.delegate = self
         try! fetchedResultsController.performFetch()
+        if let _ = meteor.userId() {
+            loginButton.image = UIImage(named: "user_icon_selected")
+        } else {
+            loginButton.image = UIImage(named:"user_icon")
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        try! fetchedResultsController.performFetch()
+        if let _ = meteor.userId() {
+            loginButton.image = UIImage(named: "user_icon_selected")
+        } else {
+            loginButton.image = UIImage(named:"user_icon")
+        }
+
     }
     
     @IBOutlet weak var newListField: UITextField!
@@ -47,6 +71,31 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
         }
     }
     
+    
+    func logoutDialog() {
+        
+        let emailAddress = meteor.user()
+        let message = emailAddress != nil ? "Signed in as \(emailAddress!)." : "Signed in."
+        
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .ActionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
+        }
+        alertController.addAction(cancelAction)
+        
+        let signOutAction = UIAlertAction(title: "Sign Out", style: .Destructive) { (action) in
+            self.meteor.logout()
+            self.loginButton.image = UIImage(named:"user_icon")
+        }
+        alertController.addAction(signOutAction)
+        
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.barButtonItem = loginButton
+        }
+        
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+
     
     func subscriptionReady() {
         self.tableView.reloadData()
@@ -71,6 +120,7 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
         let cell = tableView.dequeueReusableCellWithIdentifier("listCell", forIndexPath: indexPath) as! ListCell
         
         let listItem = fetchedResultsController.objectAtIndexPath(indexPath)
+        print("Cell -> \(listItem)")
         cell.textLabel?.text = listItem.valueForKey("name") as? String
         cell._id = listItem.valueForKey("id") as? String
         return cell
@@ -91,34 +141,26 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "listsSegue") {
-            let todosVC = segue.destinationViewController as! Todos
-            todosVC.listId = (sender as! ListCell)._id!
+            let todosVC = (segue.destinationViewController as! UINavigationController).topViewController as! Todos
+            let cell = (sender as! UITableViewCell)
+            
+            let indexPath = self.tableView.indexPathForCell(cell)
+            let todo = fetchedResultsController.objectAtIndexPath(indexPath!)
+            
+            let id = todo.valueForKey("id") as? String
+            let userId = todo.valueForKey("userId") as? String
+            
+            todosVC.listId = id!
+            todosVC.title = cell.textLabel?.text
+            
+            if let _ = userId {
+                todosVC.privateButton.image = UIImage(named: "locked_icon")
+            } else {
+                todosVC.privateButton.image = UIImage(named: "unlocked_icon")
+            }
+            
         }
     }
-    
-    /*
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-        switch type {
-        case .Move: print("> Move"); if indexPath!.isEqual(newIndexPath!) == false {
-            self.tableView.moveRowAtIndexPath(indexPath!, toIndexPath: newIndexPath!)
-        } else {
-            self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-        }
-        case .Delete: print("> Delete"); self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-        case .Insert: print("> Insert"); self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-        case .Update: print("> Update"); self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-        }
-    }
-    
-    
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        self.tableView.beginUpdates()
-    }
-    
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        self.tableView.endUpdates()
-    }
-    */
     
     func document(willBeCreatedWith fields: NSDictionary?, forObject object: NSManagedObject) -> NSManagedObject {
         if let data = fields {

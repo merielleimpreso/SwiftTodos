@@ -52,7 +52,7 @@
                                 <rect key="frame" x="0.0" y="152" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nfs-gJ-9YR" id="lF4-If-ykq">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
                                 </tableViewCellContentView>
@@ -64,13 +64,21 @@
                             <outlet property="delegate" destination="JjO-O6-tX5" id="gxx-KY-Lam"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="zsb-gd-PSh">
+                        <barButtonItem key="rightBarButtonItem" id="PeB-Fj-RMK">
+                            <connections>
+                                <action selector="makeListPrivate:" destination="JjO-O6-tX5" id="rBx-8a-za0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addTaskTextField" destination="EGL-MH-CTY" id="vhM-Qb-Dyj"/>
+                        <outlet property="privateButton" destination="PeB-Fj-RMK" id="3X5-Yg-RXY"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1CX-gT-PCd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1656" y="561"/>
+            <point key="canvasLocation" x="2468" y="561"/>
         </scene>
         <!--Lists-->
         <scene sceneID="bdH-Df-uQd">
@@ -120,13 +128,13 @@
                                 <rect key="frame" x="0.0" y="136" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aMa-Dn-r5L" id="Ixm-9A-Gta">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <animations/>
                                 </tableViewCellContentView>
                                 <animations/>
                                 <connections>
-                                    <segue destination="JjO-O6-tX5" kind="show" identifier="listsSegue" id="8RX-HN-qww"/>
+                                    <segue destination="mhN-MS-O4O" kind="showDetail" identifier="listsSegue" id="8RX-HN-qww"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -136,14 +144,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Rva-2r-R23">
-                        <barButtonItem key="leftBarButtonItem" image="user_icon" id="WMy-lB-T71">
+                        <barButtonItem key="leftBarButtonItem" id="WMy-lB-T71">
                             <connections>
-                                <segue destination="GFr-Bc-hU9" kind="presentation" identifier="accounts" modalPresentationStyle="formSheet" id="qqX-gT-Ojm"/>
+                                <action selector="loginButtonWasClicked:" destination="CDs-ye-7DR" id="fzR-zd-RkV"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="loginButton" destination="WMy-lB-T71" id="n3F-a8-Ggn"/>
                         <outlet property="newListField" destination="cax-Cc-Ulj" id="eye-7f-ZR3"/>
+                        <segue destination="GFr-Bc-hU9" kind="presentation" identifier="loginDialog" id="sds-sW-cTV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zNx-gB-YFR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -285,7 +295,7 @@
                 <splitViewController id="kll-UH-H5J" sceneMemberID="viewController">
                     <connections>
                         <segue destination="hua-jK-Xlq" kind="relationship" relationship="masterViewController" id="6tR-O1-EdF"/>
-                        <segue destination="JjO-O6-tX5" kind="relationship" relationship="detailViewController" id="SQk-Nw-4Rk"/>
+                        <segue destination="mhN-MS-O4O" kind="relationship" relationship="detailViewController" id="SQk-Nw-4Rk"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PCb-79-Mm3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -368,10 +378,26 @@
             </objects>
             <point key="canvasLocation" x="4583" y="-293"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3DL-hG-awB">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mhN-MS-O4O" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jBH-iq-piS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="JjO-O6-tX5" kind="relationship" relationship="rootViewController" id="MTJ-2x-Whg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bsv-Ew-spc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1495" y="526"/>
+        </scene>
     </scenes>
-    <resources>
-        <image name="user_icon" width="25" height="25"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="8RX-HN-qww"/>
     </inferredMetricsTieBreakers>
