@@ -14,7 +14,7 @@ class Todos: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
     @IBOutlet weak var privateButton: UIBarButtonItem!
     
     @IBAction func makeListPrivate(sender: UIBarButtonItem) {
-        if let userId = meteor.userId() {
+        if let userId = Meteor.client.userId() {
             
             if let objectUserId = lists.findOne(listId!)?.valueForKey("userId") as? String where (objectUserId == userId)  {
                 lists.update(listId!, fields: ["userId": "true"], action:"$unset")
@@ -29,13 +29,12 @@ class Todos: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
         }
     }
     
-    let meteor = (UIApplication.sharedApplication().delegate as! AppDelegate).meteor
     let todos:MeteorCoreDataCollection = (UIApplication.sharedApplication().delegate as! AppDelegate).todos
     let lists:MeteorCoreDataCollection = (UIApplication.sharedApplication().delegate as! AppDelegate).lists
     
     var listId:String? {
         didSet {
-            meteor.subscribe("todos", params: [listId!])
+            Meteor.subscribe("todos", params: [listId!])
             try! fetchedResultsController.performFetch()
         }
     }
@@ -72,7 +71,7 @@ class Todos: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
     // Insert the list
     @IBAction func add(sender: UIButton) {
         if let task = addTaskTextField.text where task != "" {
-            let _id = meteor.getId()
+            let _id = Meteor.client.getId()
             todos.insert(["_id":_id, "listId":listId!, "text":task] as NSDictionary)
             addTaskTextField.text = ""
         }

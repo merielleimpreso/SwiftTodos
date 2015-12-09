@@ -7,7 +7,6 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
-    let meteor = Meteor.client
     
     let todos = MeteorCoreDataCollection(collectionName: "todos", entityName: "Todo")
     let lists = MeteorCoreDataCollection(collectionName: "lists", entityName: "List")
@@ -22,12 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // let listViewController = masterNavigationController.topViewController as! Lists
         
         
-        meteor.logLevel = .Debug
-        let url = "wss://todos.meteor.com/websocket"
+        Meteor.client.logLevel = .Debug
+        // let url = "wss://todos.meteor.com/websocket"
+        let url = "wss://meteor-ios-todos.meteor.com/websocket"
         
-        meteor.resume(url) {
-            self.meteor.subscribe("publicLists")
-            self.meteor.subscribe("privateLists")
+        Meteor.connect(url) {
+            Meteor.subscribe("publicLists")
+            Meteor.subscribe("privateLists")
         }
         
         print("Application Did Finish Launching")

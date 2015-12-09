@@ -18,14 +18,13 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
     @IBOutlet weak var loginButton: UIBarButtonItem!
     
     @IBAction func loginButtonWasClicked(sender: UIBarButtonItem) {
-        if let _ = meteor.userId() {
+        if let _ = Meteor.client.userId() {
             logoutDialog()
         } else {
             self.performSegueWithIdentifier("loginDialog", sender: self)
         }
     }
     
-    let meteor = (UIApplication.sharedApplication().delegate as! AppDelegate).meteor
     var collection:MeteorCoreDataCollection = (UIApplication.sharedApplication().delegate as! AppDelegate).lists
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
@@ -42,7 +41,7 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
         super.viewDidLoad()
         collection.delegate = self
         try! fetchedResultsController.performFetch()
-        if let _ = meteor.userId() {
+        if let _ = Meteor.client.userId() {
             loginButton.image = UIImage(named: "user_icon_selected")
         } else {
             loginButton.image = UIImage(named:"user_icon")
@@ -52,7 +51,7 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         try! fetchedResultsController.performFetch()
-        if let _ = meteor.userId() {
+        if let _ = Meteor.client.userId() {
             loginButton.image = UIImage(named: "user_icon_selected")
         } else {
             loginButton.image = UIImage(named:"user_icon")
@@ -66,7 +65,7 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
         let list = (UIApplication.sharedApplication().delegate as! AppDelegate).lists
 
         if let newList = newListField.text {
-            list.insert(["_id":meteor.getId(), "name":newList])
+            list.insert(["_id":Meteor.client.getId(), "name":newList])
             newListField.text = ""
         }
     }
@@ -74,7 +73,7 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
     
     func logoutDialog() {
         
-        let emailAddress = meteor.user()
+        let emailAddress = Meteor.client.user()
         let message = emailAddress != nil ? "Signed in as \(emailAddress!)." : "Signed in."
         
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .ActionSheet)
@@ -84,7 +83,7 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
         alertController.addAction(cancelAction)
         
         let signOutAction = UIAlertAction(title: "Sign Out", style: .Destructive) { (action) in
-            self.meteor.logout()
+            Meteor.logout()
             self.loginButton.image = UIImage(named:"user_icon")
         }
         alertController.addAction(signOutAction)

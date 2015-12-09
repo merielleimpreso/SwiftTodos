@@ -1,10 +1,9 @@
 
 import UIKit
+import SwiftDDP
 
 class SignUp: UIViewController {
     
-    let meteor = (UIApplication.sharedApplication().delegate as! AppDelegate).meteor
-
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var password2Field: UITextField!
@@ -21,16 +20,15 @@ class SignUp: UIViewController {
                 return
         }
         
-        meteor.signupWithEmail(email, password: password) { result, error in
+        Meteor.signupWithEmail(email, password: password) { result, error in
             if (error == nil) {
-                self.meteor.loginWithToken() { result, error in
+                Meteor.client.loginWithToken() { result, error in
                     if (error == nil) {
                         self.dismissViewControllerAnimated(true, completion: nil)
                     }
                 }
             }
         }
-        
         
     }
     

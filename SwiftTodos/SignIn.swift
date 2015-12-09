@@ -5,7 +5,7 @@ import SwiftDDP
 
 class SignIn: UIViewController {
 
-    let meteor = (UIApplication.sharedApplication().delegate as! AppDelegate).meteor
+    // let meteor = (UIApplication.sharedApplication().delegate as! AppDelegate).meteor
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -19,7 +19,7 @@ class SignIn: UIViewController {
         errorField.text = ""
         if let password = passwordField?.text where (password != ""),
            let email = emailField?.text where (email != "") {
-            meteor.loginWithPassword(email, password: password) { result, error in
+            Meteor.loginWithPassword(email, password: password) { result, error in
                 if (error == nil) {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 } else {
@@ -28,6 +28,8 @@ class SignIn: UIViewController {
                     }
                 }
             }
+        } else {
+            print("sign condition for password etc not fulfilled")
         }
     }
     
