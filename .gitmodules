@@ -1,6 +1,0 @@
-[submodule "SwiftDDP"]
-	path = SwiftDDP
-	url = https://github.com/siegesmund/SwiftDDP
-[submodule "XCGLogger"]
-	path = XCGLogger
-	url = https://github.com/DaveWoodCom/XCGLogger
