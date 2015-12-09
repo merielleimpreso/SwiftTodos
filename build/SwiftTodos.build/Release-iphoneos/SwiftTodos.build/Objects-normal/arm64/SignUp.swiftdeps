@@ -1,0 +1,363 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "SignUp"
+provides-nominal:
+- "C10SwiftTodos6SignUp"
+provides-member:
+- ["C10SwiftTodos6SignUp", ""]
+provides-dynamic-lookup:
+- "didReceiveMemoryWarning"
+- "password2Field"
+- "cancel"
+- "joinNow"
+- "emailField"
+- "passwordField"
+- "viewDidLoad"
+depends-top-level:
+- "SignUp"
+- !private "&&"
+- !private "BooleanLiteralType"
+- "AppDelegate"
+- !private "print"
+- "UIButton"
+- !private "!="
+- !private "StringLiteralType"
+- "UITextField"
+- "UIViewController"
+- "UIBarButtonItem"
+- "UIApplication"
+- !private "=="
+depends-member:
+- ["PSs9AnyObject", "UIApplication"]
+- ["PSs9AnyObject", "cancel"]
+- ["PSs9AnyObject", "delegate"]
+- ["PSs9AnyObject", "didReceiveMemoryWarning"]
+- !private ["PSs9AnyObject", "dismissViewControllerAnimated"]
+- ["PSs9AnyObject", "emailField"]
+- ["PSs9AnyObject", "init"]
+- ["PSs9AnyObject", "joinNow"]
+- ["PSs9AnyObject", "meteor"]
+- ["PSs9AnyObject", "password2Field"]
+- ["PSs9AnyObject", "passwordField"]
+- !private ["PSs9AnyObject", "print"]
+- ["PSs9AnyObject", "sharedApplication"]
+- !private ["PSs9AnyObject", "text"]
+- ["PSs9AnyObject", "viewDidLoad"]
+- ["PSs9AnyObject", ""]
+- ["C10SwiftTodos11AppDelegate", "meteor"]
+- !private ["Sb", "_getBuiltinLogicValue"]
+- !private ["PSs25BooleanLiteralConvertible", "_getBuiltinLogicValue"]
+- !private ["PSs11BooleanType", "_getBuiltinLogicValue"]
+- ["PSs11CVarArgType", "UIApplication"]
+- ["PSs11CVarArgType", "cancel"]
+- ["PSs11CVarArgType", "delegate"]
+- ["PSs11CVarArgType", "didReceiveMemoryWarning"]
+- !private ["PSs11CVarArgType", "dismissViewControllerAnimated"]
+- ["PSs11CVarArgType", "emailField"]
+- ["PSs11CVarArgType", "init"]
+- ["PSs11CVarArgType", "joinNow"]
+- ["PSs11CVarArgType", "meteor"]
+- ["PSs11CVarArgType", "password2Field"]
+- ["PSs11CVarArgType", "passwordField"]
+- !private ["PSs11CVarArgType", "print"]
+- ["PSs11CVarArgType", "sharedApplication"]
+- !private ["PSs11CVarArgType", "text"]
+- ["PSs11CVarArgType", "viewDidLoad"]
+- ["PSs11CVarArgType", ""]
+- ["PSs28CustomDebugStringConvertible", "Some"]
+- ["PSs23CustomStringConvertible", "UIApplication"]
+- !private ["PSs23CustomStringConvertible", "_getBuiltinLogicValue"]
+- ["PSs23CustomStringConvertible", "cancel"]
+- ["PSs23CustomStringConvertible", "delegate"]
+- ["PSs23CustomStringConvertible", "didReceiveMemoryWarning"]
+- !private ["PSs23CustomStringConvertible", "dismissViewControllerAnimated"]
+- ["PSs23CustomStringConvertible", "emailField"]
+- ["PSs23CustomStringConvertible", "init"]
+- ["PSs23CustomStringConvertible", "joinNow"]
+- ["PSs23CustomStringConvertible", "meteor"]
+- ["PSs23CustomStringConvertible", "password2Field"]
+- ["PSs23CustomStringConvertible", "passwordField"]
+- !private ["PSs23CustomStringConvertible", "print"]
+- ["PSs23CustomStringConvertible", "sharedApplication"]
+- !private ["PSs23CustomStringConvertible", "text"]
+- ["PSs23CustomStringConvertible", "viewDidLoad"]
+- ["PSs23CustomStringConvertible", ""]
+- ["PSs9Equatable", "UIApplication"]
+- !private ["PSs9Equatable", "_getBuiltinLogicValue"]
+- ["PSs9Equatable", "cancel"]
+- ["PSs9Equatable", "delegate"]
+- ["PSs9Equatable", "didReceiveMemoryWarning"]
+- !private ["PSs9Equatable", "dismissViewControllerAnimated"]
+- ["PSs9Equatable", "emailField"]
+- ["PSs9Equatable", "init"]
+- ["PSs9Equatable", "joinNow"]
+- ["PSs9Equatable", "meteor"]
+- ["PSs9Equatable", "password2Field"]
+- ["PSs9Equatable", "passwordField"]
+- !private ["PSs9Equatable", "print"]
+- ["PSs9Equatable", "sharedApplication"]
+- !private ["PSs9Equatable", "text"]
+- ["PSs9Equatable", "viewDidLoad"]
+- ["PSs9Equatable", ""]
+- ["PSs8Hashable", "UIApplication"]
+- !private ["PSs8Hashable", "_getBuiltinLogicValue"]
+- ["PSs8Hashable", "cancel"]
+- ["PSs8Hashable", "delegate"]
+- ["PSs8Hashable", "didReceiveMemoryWarning"]
+- !private ["PSs8Hashable", "dismissViewControllerAnimated"]
+- ["PSs8Hashable", "emailField"]
+- ["PSs8Hashable", "init"]
+- ["PSs8Hashable", "joinNow"]
+- ["PSs8Hashable", "meteor"]
+- ["PSs8Hashable", "password2Field"]
+- ["PSs8Hashable", "passwordField"]
+- !private ["PSs8Hashable", "print"]
+- ["PSs8Hashable", "sharedApplication"]
+- !private ["PSs8Hashable", "text"]
+- ["PSs8Hashable", "viewDidLoad"]
+- ["PSs8Hashable", ""]
+- ["PSo8NSCoding", "UIApplication"]
+- ["PSo8NSCoding", "cancel"]
+- ["PSo8NSCoding", "didReceiveMemoryWarning"]
+- !private ["PSo8NSCoding", "dismissViewControllerAnimated"]
+- ["PSo8NSCoding", "emailField"]
+- ["PSo8NSCoding", "init"]
+- ["PSo8NSCoding", "joinNow"]
+- !private ["PSo8NSCoding", "meteor"]
+- ["PSo8NSCoding", "password2Field"]
+- ["PSo8NSCoding", "passwordField"]
+- !private ["PSo8NSCoding", "print"]
+- !private ["PSo8NSCoding", "text"]
+- ["PSo8NSCoding", "viewDidLoad"]
+- ["PSo8NSCoding", ""]
+- ["PSo26NSExtensionRequestHandling", "UIApplication"]
+- ["PSo26NSExtensionRequestHandling", "cancel"]
+- ["PSo26NSExtensionRequestHandling", "didReceiveMemoryWarning"]
+- !private ["PSo26NSExtensionRequestHandling", "dismissViewControllerAnimated"]
+- ["PSo26NSExtensionRequestHandling", "emailField"]
+- ["PSo26NSExtensionRequestHandling", "init"]
+- ["PSo26NSExtensionRequestHandling", "joinNow"]
+- !private ["PSo26NSExtensionRequestHandling", "meteor"]
+- ["PSo26NSExtensionRequestHandling", "password2Field"]
+- ["PSo26NSExtensionRequestHandling", "passwordField"]
+- !private ["PSo26NSExtensionRequestHandling", "print"]
+- ["PSo26NSExtensionRequestHandling", "viewDidLoad"]
+- ["PSo26NSExtensionRequestHandling", ""]
+- ["CSo8NSObject", "AppDelegate"]
+- ["CSo8NSObject", "UIApplication"]
+- ["CSo8NSObject", "UIBarButtonItem"]
+- ["CSo8NSObject", "UIButton"]
+- ["CSo8NSObject", "UITextField"]
+- ["CSo8NSObject", "cancel"]
+- ["CSo8NSObject", "delegate"]
+- ["CSo8NSObject", "didReceiveMemoryWarning"]
+- !private ["CSo8NSObject", "dismissViewControllerAnimated"]
+- ["CSo8NSObject", "emailField"]
+- ["CSo8NSObject", "init"]
+- ["CSo8NSObject", "joinNow"]
+- ["CSo8NSObject", "meteor"]
+- ["CSo8NSObject", "password2Field"]
+- ["CSo8NSObject", "passwordField"]
+- !private ["CSo8NSObject", "print"]
+- ["CSo8NSObject", "sharedApplication"]
+- !private ["CSo8NSObject", "text"]
+- ["CSo8NSObject", "viewDidLoad"]
+- ["PSo16NSObjectProtocol", "UIApplication"]
+- ["PSo16NSObjectProtocol", "cancel"]
+- ["PSo16NSObjectProtocol", "delegate"]
+- ["PSo16NSObjectProtocol", "didReceiveMemoryWarning"]
+- !private ["PSo16NSObjectProtocol", "dismissViewControllerAnimated"]
+- ["PSo16NSObjectProtocol", "emailField"]
+- ["PSo16NSObjectProtocol", "init"]
+- ["PSo16NSObjectProtocol", "joinNow"]
+- ["PSo16NSObjectProtocol", "meteor"]
+- ["PSo16NSObjectProtocol", "password2Field"]
+- ["PSo16NSObjectProtocol", "passwordField"]
+- !private ["PSo16NSObjectProtocol", "print"]
+- ["PSo16NSObjectProtocol", "sharedApplication"]
+- !private ["PSo16NSObjectProtocol", "text"]
+- ["PSo16NSObjectProtocol", "viewDidLoad"]
+- ["PSo16NSObjectProtocol", ""]
+- ["PSs21NilLiteralConvertible", "Some"]
+- ["Sq", "Some"]
+- ["Sq", "deinit"]
+- ["C10SwiftTodos6SignUp", "AppDelegate"]
+- ["C10SwiftTodos6SignUp", "UIApplication"]
+- ["C10SwiftTodos6SignUp", "UIBarButtonItem"]
+- ["C10SwiftTodos6SignUp", "UIButton"]
+- ["C10SwiftTodos6SignUp", "UITextField"]
+- ["C10SwiftTodos6SignUp", "cancel"]
+- ["C10SwiftTodos6SignUp", "deinit"]
+- ["C10SwiftTodos6SignUp", "didReceiveMemoryWarning"]
+- !private ["C10SwiftTodos6SignUp", "dismissViewControllerAnimated"]
+- ["C10SwiftTodos6SignUp", "emailField"]
+- ["C10SwiftTodos6SignUp", "init"]
+- ["C10SwiftTodos6SignUp", "joinNow"]
+- !private ["C10SwiftTodos6SignUp", "meteor"]
+- ["C10SwiftTodos6SignUp", "password2Field"]
+- ["C10SwiftTodos6SignUp", "passwordField"]
+- !private ["C10SwiftTodos6SignUp", "print"]
+- ["C10SwiftTodos6SignUp", "viewDidLoad"]
+- !private ["SS", "deinit"]
+- !private ["PSo29UIAccessibilityIdentification", "text"]
+- !private ["PSo12UIAppearance", "text"]
+- ["PSo21UIAppearanceContainer", "UIApplication"]
+- ["PSo21UIAppearanceContainer", "cancel"]
+- ["PSo21UIAppearanceContainer", "didReceiveMemoryWarning"]
+- !private ["PSo21UIAppearanceContainer", "dismissViewControllerAnimated"]
+- ["PSo21UIAppearanceContainer", "emailField"]
+- ["PSo21UIAppearanceContainer", "init"]
+- ["PSo21UIAppearanceContainer", "joinNow"]
+- !private ["PSo21UIAppearanceContainer", "meteor"]
+- ["PSo21UIAppearanceContainer", "password2Field"]
+- ["PSo21UIAppearanceContainer", "passwordField"]
+- !private ["PSo21UIAppearanceContainer", "print"]
+- !private ["PSo21UIAppearanceContainer", "text"]
+- ["PSo21UIAppearanceContainer", "viewDidLoad"]
+- ["PSo21UIAppearanceContainer", ""]
+- ["CSo13UIApplication", "delegate"]
+- ["CSo13UIApplication", "sharedApplication"]
+- ["PSo21UIApplicationDelegate", "meteor"]
+- ["PSo18UIContentContainer", "UIApplication"]
+- ["PSo18UIContentContainer", "cancel"]
+- ["PSo18UIContentContainer", "didReceiveMemoryWarning"]
+- !private ["PSo18UIContentContainer", "dismissViewControllerAnimated"]
+- ["PSo18UIContentContainer", "emailField"]
+- ["PSo18UIContentContainer", "init"]
+- ["PSo18UIContentContainer", "joinNow"]
+- !private ["PSo18UIContentContainer", "meteor"]
+- ["PSo18UIContentContainer", "password2Field"]
+- ["PSo18UIContentContainer", "passwordField"]
+- !private ["PSo18UIContentContainer", "print"]
+- ["PSo18UIContentContainer", "viewDidLoad"]
+- ["PSo18UIContentContainer", ""]
+- !private ["CSo9UIControl", "text"]
+- !private ["PSo17UICoordinateSpace", "text"]
+- !private ["PSo13UIDynamicItem", "text"]
+- !private ["PSo10UIKeyInput", "text"]
+- ["CSo11UIResponder", "AppDelegate"]
+- ["CSo11UIResponder", "UIApplication"]
+- ["CSo11UIResponder", "UIBarButtonItem"]
+- ["CSo11UIResponder", "UIButton"]
+- ["CSo11UIResponder", "UITextField"]
+- ["CSo11UIResponder", "cancel"]
+- ["CSo11UIResponder", "delegate"]
+- ["CSo11UIResponder", "didReceiveMemoryWarning"]
+- !private ["CSo11UIResponder", "dismissViewControllerAnimated"]
+- ["CSo11UIResponder", "emailField"]
+- ["CSo11UIResponder", "init"]
+- ["CSo11UIResponder", "joinNow"]
+- ["CSo11UIResponder", "meteor"]
+- ["CSo11UIResponder", "password2Field"]
+- ["CSo11UIResponder", "passwordField"]
+- !private ["CSo11UIResponder", "print"]
+- ["CSo11UIResponder", "sharedApplication"]
+- !private ["CSo11UIResponder", "text"]
+- ["CSo11UIResponder", "viewDidLoad"]
+- ["PSo16UIStateRestoring", "UIApplication"]
+- ["PSo16UIStateRestoring", "cancel"]
+- ["PSo16UIStateRestoring", "didReceiveMemoryWarning"]
+- !private ["PSo16UIStateRestoring", "dismissViewControllerAnimated"]
+- ["PSo16UIStateRestoring", "emailField"]
+- ["PSo16UIStateRestoring", "init"]
+- ["PSo16UIStateRestoring", "joinNow"]
+- !private ["PSo16UIStateRestoring", "meteor"]
+- ["PSo16UIStateRestoring", "password2Field"]
+- ["PSo16UIStateRestoring", "passwordField"]
+- !private ["PSo16UIStateRestoring", "print"]
+- ["PSo16UIStateRestoring", "viewDidLoad"]
+- ["PSo16UIStateRestoring", ""]
+- !private ["CSo11UITextField", "text"]
+- !private ["PSo11UITextInput", "text"]
+- !private ["PSo17UITextInputTraits", "text"]
+- ["PSo18UITraitEnvironment", "UIApplication"]
+- ["PSo18UITraitEnvironment", "cancel"]
+- ["PSo18UITraitEnvironment", "didReceiveMemoryWarning"]
+- !private ["PSo18UITraitEnvironment", "dismissViewControllerAnimated"]
+- ["PSo18UITraitEnvironment", "emailField"]
+- ["PSo18UITraitEnvironment", "init"]
+- ["PSo18UITraitEnvironment", "joinNow"]
+- !private ["PSo18UITraitEnvironment", "meteor"]
+- ["PSo18UITraitEnvironment", "password2Field"]
+- ["PSo18UITraitEnvironment", "passwordField"]
+- !private ["PSo18UITraitEnvironment", "print"]
+- !private ["PSo18UITraitEnvironment", "text"]
+- ["PSo18UITraitEnvironment", "viewDidLoad"]
+- ["PSo18UITraitEnvironment", ""]
+- !private ["CSo6UIView", "text"]
+- ["CSo16UIViewController", "AppDelegate"]
+- ["CSo16UIViewController", "UIApplication"]
+- ["CSo16UIViewController", "UIBarButtonItem"]
+- ["CSo16UIViewController", "UIButton"]
+- ["CSo16UIViewController", "UITextField"]
+- ["CSo16UIViewController", "cancel"]
+- ["CSo16UIViewController", "didReceiveMemoryWarning"]
+- !private ["CSo16UIViewController", "dismissViewControllerAnimated"]
+- ["CSo16UIViewController", "emailField"]
+- ["CSo16UIViewController", "init"]
+- ["CSo16UIViewController", "joinNow"]
+- !private ["CSo16UIViewController", "meteor"]
+- ["CSo16UIViewController", "password2Field"]
+- ["CSo16UIViewController", "passwordField"]
+- !private ["CSo16UIViewController", "print"]
+- ["CSo16UIViewController", "viewDidLoad"]
+- ["CSo16UIViewController", ""]
+- !private ["PSs33_BuiltinBooleanLiteralConvertible", "_getBuiltinLogicValue"]
+- !private ["PSs21_ObjectiveCBridgeable", "_getBuiltinLogicValue"]
+- !private ["VSs26_OptionalNilComparisonType", "deinit"]
+- ["PSs12_Reflectable", "Some"]
+- !private ["PSs12_Reflectable", "_getBuiltinLogicValue"]
+- !private ["PSs12_Reflectable", "text"]
+depends-nominal:
+- "PSs9AnyObject"
+- "C10SwiftTodos11AppDelegate"
+- !private "Sb"
+- !private "PSs25BooleanLiteralConvertible"
+- !private "PSs11BooleanType"
+- "PSs11CVarArgType"
+- "PSs28CustomDebugStringConvertible"
+- "PSs23CustomStringConvertible"
+- "PSs9Equatable"
+- "PSs8Hashable"
+- "PSo8NSCoding"
+- "PSo26NSExtensionRequestHandling"
+- "CSo8NSObject"
+- "PSo16NSObjectProtocol"
+- "PSs21NilLiteralConvertible"
+- "Sq"
+- "C10SwiftTodos6SignUp"
+- !private "SS"
+- !private "PSo29UIAccessibilityIdentification"
+- !private "PSo12UIAppearance"
+- "PSo21UIAppearanceContainer"
+- "CSo13UIApplication"
+- "PSo21UIApplicationDelegate"
+- "PSo18UIContentContainer"
+- !private "CSo9UIControl"
+- !private "PSo17UICoordinateSpace"
+- !private "PSo13UIDynamicItem"
+- !private "PSo10UIKeyInput"
+- "CSo11UIResponder"
+- "PSo16UIStateRestoring"
+- !private "CSo11UITextField"
+- !private "PSo11UITextInput"
+- !private "PSo17UITextInputTraits"
+- "PSo18UITraitEnvironment"
+- !private "CSo6UIView"
+- "CSo16UIViewController"
+- !private "PSs33_BuiltinBooleanLiteralConvertible"
+- !private "PSs21_ObjectiveCBridgeable"
+- !private "VSs26_OptionalNilComparisonType"
+- "PSs12_Reflectable"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/CoreData.swiftmodule"
+interface-hash: "96afa0d2a094f0fba693a90906434616"

@@ -22,7 +22,6 @@ import UIKit
 import CoreData
 import SwiftDDP
 import XCGLogger
-import MeteorCoreData
 
 public protocol MeteorCoreDataCollectionDelegate {
     func document(willBeCreatedWith fields:NSDictionary?, forObject object:NSManagedObject) -> NSManagedObject

@@ -1,0 +1,9 @@
+version: "Apple Swift version 2.0 (swiftlang-700.0.59 clang-700.0.72)"
+options: "2a64dd09a44daeb2a8b99492d661bb3a"
+build_time: [499526857, 735410000]
+inputs: 
+	"/Users/peter/Dropbox/Development/Programming/Swift/SwiftTodos/SwiftTodos/AppDelegate.swift": !dirty [499474320, 0]
+	"/Users/peter/Dropbox/Development/Programming/Swift/SwiftTodos/SwiftTodos/Lists.swift": !dirty [499470436, 0]
+	"/Users/peter/Dropbox/Development/Programming/Swift/SwiftTodos/SwiftTodos/SignUp.swift": !dirty [498439370, 0]
+	"/Users/peter/Dropbox/Development/Programming/Swift/SwiftTodos/SwiftTodos/SignIn.swift": !dirty [499359886, 0]
+	"/Users/peter/Dropbox/Development/Programming/Swift/SwiftTodos/SwiftTodos/Todos.swift": !dirty [499473901, 0]
