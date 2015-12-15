@@ -22,75 +22,7 @@
 		D0B5008B1C187D9E00A62873 /* MeteorCollectionChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B500851C187D9E00A62873 /* MeteorCollectionChange.swift */; settings = {ASSET_TAGS = (); }; };
 		D0B5008C1C187D9E00A62873 /* CoreDataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B500861C187D9E00A62873 /* CoreDataExtensions.swift */; settings = {ASSET_TAGS = (); }; };
 		D0CF8A1E1BE2B64900EC9F12 /* MeteorCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0CF8A1C1BE2B64900EC9F12 /* MeteorCoreData.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
-		D0D00F5E1BE2595C00457CB3 /* SwiftDDP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0D00F461BE2583200457CB3 /* SwiftDDP.framework */; };
-		D0D00F5F1BE2595C00457CB3 /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0D00F531BE2583C00457CB3 /* XCGLogger.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		D0B500721C187B7E00A62873 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0B5006E1C187B7E00A62873 /* MeteorCoreData.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D0B1CA0C1BFD32CB0022312F;
-			remoteInfo = MeteorCoreData;
-		};
-		D0D00F451BE2583200457CB3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0D00F401BE2583200457CB3 /* SwiftDDP.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D02A71DC1BBEFBCA00940C17;
-			remoteInfo = SwiftDDP;
-		};
-		D0D00F471BE2583200457CB3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0D00F401BE2583200457CB3 /* SwiftDDP.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D02A72531BBF07AF00940C17;
-			remoteInfo = SwiftDDPTests;
-		};
-		D0D00F521BE2583C00457CB3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0D00F491BE2583C00457CB3 /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55E3EE4519D76F280068C3A7;
-			remoteInfo = "XCGLogger (iOS)";
-		};
-		D0D00F541BE2583C00457CB3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0D00F491BE2583C00457CB3 /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 554DF41719D76FE7005708BE;
-			remoteInfo = "XCGLogger (OS X)";
-		};
-		D0D00F561BE2583C00457CB3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0D00F491BE2583C00457CB3 /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 70CB94201B99E728007802FF;
-			remoteInfo = "XCGLogger (watchOS)";
-		};
-		D0D00F581BE2583C00457CB3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0D00F491BE2583C00457CB3 /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5515A3DF1BA119FA0047BA31;
-			remoteInfo = "XCGLogger (tvOS)";
-		};
-		D0D00F5A1BE2583C00457CB3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0D00F491BE2583C00457CB3 /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55E3EE5019D76F280068C3A7;
-			remoteInfo = "XCGLoggerTests (iOS)";
-		};
-		D0D00F5C1BE2583C00457CB3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0D00F491BE2583C00457CB3 /* XCGLogger.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 55BB1F011B79DC7500709779;
-			remoteInfo = "XCGLoggerTests (OS X)";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		D05BDCD81BD16FFE00968B5D /* SwiftTodos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftTodos.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,21 +35,13 @@
 		D05BDCF61BD1A32200968B5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
 		D05BDCF81BD2A4A000968B5D /* SignIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		D05BDCFA1BD2A4CE00968B5D /* SignUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
-		D0B5006E1C187B7E00A62873 /* MeteorCoreData.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MeteorCoreData.xcodeproj; path = MeteorCoreData/MeteorCoreData.xcodeproj; sourceTree = "<group>"; };
 		D0B500811C187D9E00A62873 /* MeteorCoreDataTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorCoreDataTableViewController.swift; sourceTree = "<group>"; };
 		D0B500821C187D9E00A62873 /* MeteorCoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorCoreDataStack.swift; sourceTree = "<group>"; };
 		D0B500831C187D9E00A62873 /* MeteorCoreDataCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorCoreDataCollection.swift; sourceTree = "<group>"; };
 		D0B500841C187D9E00A62873 /* MeteorCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorCoreData.swift; sourceTree = "<group>"; };
 		D0B500851C187D9E00A62873 /* MeteorCollectionChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeteorCollectionChange.swift; sourceTree = "<group>"; };
 		D0B500861C187D9E00A62873 /* CoreDataExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataExtensions.swift; sourceTree = "<group>"; };
-		D0C736541BDAD2F700C28114 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
-		D0C736561BDAD2FD00C28114 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
-		D0C736571BDAD2FD00C28114 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
-		D0C7365A1BDAD30400C28114 /* SwiftWebSocket.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftWebSocket.framework; path = Carthage/Build/iOS/SwiftWebSocket.framework; sourceTree = "<group>"; };
-		D0C7365C1BDAD30A00C28114 /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/iOS/XCGLogger.framework; sourceTree = "<group>"; };
 		D0CF8A1D1BE2B64900EC9F12 /* MeteorCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MeteorCoreData.xcdatamodel; sourceTree = "<group>"; };
-		D0D00F401BE2583200457CB3 /* SwiftDDP.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftDDP.xcodeproj; path = SwiftDDP/SwiftDDP.xcodeproj; sourceTree = "<group>"; };
-		D0D00F491BE2583C00457CB3 /* XCGLogger.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XCGLogger.xcodeproj; path = XCGLogger/XCGLogger/Library/XCGLogger.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,8 +49,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0D00F5E1BE2595C00457CB3 /* SwiftDDP.framework in Frameworks */,
-				D0D00F5F1BE2595C00457CB3 /* XCGLogger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,8 +58,6 @@
 		D05BDCCF1BD16FFE00968B5D = {
 			isa = PBXGroup;
 			children = (
-				D0D00F491BE2583C00457CB3 /* XCGLogger.xcodeproj */,
-				D0D00F401BE2583200457CB3 /* SwiftDDP.xcodeproj */,
 				D05BDCDA1BD16FFE00968B5D /* SwiftTodos */,
 				D05BDCD91BD16FFE00968B5D /* Products */,
 				D3701204A14182D2E8AF5A18 /* Frameworks */,
@@ -170,14 +90,6 @@
 			path = SwiftTodos;
 			sourceTree = "<group>";
 		};
-		D0B5006F1C187B7E00A62873 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D0B500731C187B7E00A62873 /* MeteorCoreData.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		D0B5008D1C187DAB00A62873 /* MeteorCoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,37 +103,9 @@
 			name = MeteorCoreData;
 			sourceTree = "<group>";
 		};
-		D0D00F411BE2583200457CB3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D0D00F461BE2583200457CB3 /* SwiftDDP.framework */,
-				D0D00F481BE2583200457CB3 /* SwiftDDPTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		D0D00F4A1BE2583C00457CB3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D0D00F531BE2583C00457CB3 /* XCGLogger.framework */,
-				D0D00F551BE2583C00457CB3 /* XCGLogger.framework */,
-				D0D00F571BE2583C00457CB3 /* XCGLogger.framework */,
-				D0D00F591BE2583C00457CB3 /* XCGLogger.framework */,
-				D0D00F5B1BE2583C00457CB3 /* XCGLoggerTests (iOS).xctest */,
-				D0D00F5D1BE2583C00457CB3 /* XCGLoggerTests (OS X).xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		D3701204A14182D2E8AF5A18 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D0B5006E1C187B7E00A62873 /* MeteorCoreData.xcodeproj */,
-				D0C7365C1BDAD30A00C28114 /* XCGLogger.framework */,
-				D0C7365A1BDAD30400C28114 /* SwiftWebSocket.framework */,
-				D0C736561BDAD2FD00C28114 /* Realm.framework */,
-				D0C736571BDAD2FD00C28114 /* RealmSwift.framework */,
-				D0C736541BDAD2F700C28114 /* CryptoSwift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -271,92 +155,12 @@
 			mainGroup = D05BDCCF1BD16FFE00968B5D;
 			productRefGroup = D05BDCD91BD16FFE00968B5D /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = D0B5006F1C187B7E00A62873 /* Products */;
-					ProjectRef = D0B5006E1C187B7E00A62873 /* MeteorCoreData.xcodeproj */;
-				},
-				{
-					ProductGroup = D0D00F411BE2583200457CB3 /* Products */;
-					ProjectRef = D0D00F401BE2583200457CB3 /* SwiftDDP.xcodeproj */;
-				},
-				{
-					ProductGroup = D0D00F4A1BE2583C00457CB3 /* Products */;
-					ProjectRef = D0D00F491BE2583C00457CB3 /* XCGLogger.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				D05BDCD71BD16FFE00968B5D /* SwiftTodos */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		D0B500731C187B7E00A62873 /* MeteorCoreData.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = MeteorCoreData.framework;
-			remoteRef = D0B500721C187B7E00A62873 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D0D00F461BE2583200457CB3 /* SwiftDDP.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftDDP.framework;
-			remoteRef = D0D00F451BE2583200457CB3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D0D00F481BE2583200457CB3 /* SwiftDDPTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SwiftDDPTests.xctest;
-			remoteRef = D0D00F471BE2583200457CB3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D0D00F531BE2583C00457CB3 /* XCGLogger.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = XCGLogger.framework;
-			remoteRef = D0D00F521BE2583C00457CB3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D0D00F551BE2583C00457CB3 /* XCGLogger.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = XCGLogger.framework;
-			remoteRef = D0D00F541BE2583C00457CB3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D0D00F571BE2583C00457CB3 /* XCGLogger.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = XCGLogger.framework;
-			remoteRef = D0D00F561BE2583C00457CB3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D0D00F591BE2583C00457CB3 /* XCGLogger.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = XCGLogger.framework;
-			remoteRef = D0D00F581BE2583C00457CB3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D0D00F5B1BE2583C00457CB3 /* XCGLoggerTests (iOS).xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "XCGLoggerTests (iOS).xctest";
-			remoteRef = D0D00F5A1BE2583C00457CB3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D0D00F5D1BE2583C00457CB3 /* XCGLoggerTests (OS X).xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "XCGLoggerTests (OS X).xctest";
-			remoteRef = D0D00F5C1BE2583C00457CB3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		D05BDCD61BD16FFE00968B5D /* Resources */ = {
