@@ -13,7 +13,7 @@ public class ListCell:UITableViewCell {
 }
 
 
-class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate {
+class Lists: UITableViewController {
     
     @IBOutlet weak var loginButton: UIBarButtonItem!
     
@@ -25,22 +25,11 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
         }
     }
     
-    var collection:MeteorCoreDataCollection = (UIApplication.sharedApplication().delegate as! AppDelegate).lists
-    
-    lazy var fetchedResultsController: NSFetchedResultsController = {
-        let fetchRequest = NSFetchRequest(entityName: "List")
-        let primarySortDescriptor = NSSortDescriptor(key: "id", ascending: true)
-        let secondarySortDescriptor = NSSortDescriptor(key: "name", ascending: false)
-        fetchRequest.sortDescriptors = [secondarySortDescriptor, primarySortDescriptor]
-        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.collection.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-        frc.delegate = self
-        return frc
-        }()
+    var collection:MeteorCollection = (UIApplication.sharedApplication().delegate as! AppDelegate).lists
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collection.delegate = self
-        try! fetchedResultsController.performFetch()
+        
         if let _ = Meteor.client.userId() {
             loginButton.image = UIImage(named: "user_icon_selected")
         } else {
@@ -50,7 +39,7 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        try! fetchedResultsController.performFetch()
+        
         if let _ = Meteor.client.userId() {
             loginButton.image = UIImage(named: "user_icon_selected")
         } else {
@@ -62,11 +51,12 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
     @IBOutlet weak var newListField: UITextField!
     
     @IBAction func addList(sender: AnyObject) {
-        let list = (UIApplication.sharedApplication().delegate as! AppDelegate).lists
 
         if let newList = newListField.text {
-            list.insert(["_id":Meteor.client.getId(), "name":newList])
+            let list = List(id: Meteor.client.getId(), fields: ["name": newList])
+            collection.insert(list)
             newListField.text = ""
+            self.tableView.reloadData()
         }
     }
     
@@ -101,24 +91,17 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if let sections = fetchedResultsController.sections {
-            return sections.count
-        }
-        return 0
+        return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let sections = fetchedResultsController.sections {
-            let currentSection = sections[section]
-            return currentSection.numberOfObjects
-        }
-        return 0
+       return collection.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("listCell", forIndexPath: indexPath) as! ListCell
         
-        let listItem = fetchedResultsController.objectAtIndexPath(indexPath)
+        let listItem = collection.sorted[indexPath.row]
         print("Cell -> \(listItem)")
         cell.textLabel?.text = listItem.valueForKey("name") as? String
         cell._id = listItem.valueForKey("id") as? String
@@ -131,9 +114,9 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
-            let object = fetchedResultsController.objectAtIndexPath(indexPath) as! NSManagedObject
-            let id = object.valueForKey("id") as! String
-            self.collection.remove(withId: id)
+            let object = collection.sorted[indexPath.row]
+            self.collection.remove(object)
+            self.tableView.reloadData()
         }
 
     }
@@ -144,7 +127,7 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
             let cell = (sender as! UITableViewCell)
             
             let indexPath = self.tableView.indexPathForCell(cell)
-            let todo = fetchedResultsController.objectAtIndexPath(indexPath!)
+            let todo = collection.sorted[indexPath!.row]
             
             let id = todo.valueForKey("id") as? String
             let userId = todo.valueForKey("userId") as? String
@@ -160,32 +143,4 @@ class Lists: MeteorCoreDataTableViewController, MeteorCoreDataCollectionDelegate
             
         }
     }
-    
-    func document(willBeCreatedWith fields: NSDictionary?, forObject object: NSManagedObject) -> NSManagedObject {
-        if let data = fields {
-            for (key,value) in data {
-                if !key.isEqual("createdAt") && !key.isEqual("_id") {
-                    object.setValue(value, forKey: key as! String)
-                }
-            }
-        }
-        return object
-    }
-    
-    func document(willBeUpdatedWith fields: NSDictionary?, cleared: [String]?, forObject object: NSManagedObject) -> NSManagedObject {
-        if let _ = fields {
-            for (key,value) in fields! {
-                object.setValue(value, forKey: key as! String)
-            }
-        }
-        
-        if let _ = cleared {
-            for field in cleared! {
-                object.setNilValueForKey(field)
-            }
-        }
-        return object
-    }
-
-    
 }

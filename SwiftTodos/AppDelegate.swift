@@ -8,8 +8,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     var window: UIWindow?
     
-    let todos = MeteorCoreDataCollection(collectionName: "todos", entityName: "Todo")
-    let lists = MeteorCoreDataCollection(collectionName: "lists", entityName: "List")
+    let lists = MeteorCollection<List>(name: "lists")
+    let todos = MeteorCollection<Todo>(name: "todos")
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -20,10 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
         // let listViewController = masterNavigationController.topViewController as! Lists
         
-        
         Meteor.client.logLevel = .Debug
-        // let url = "wss://todos.meteor.com/websocket"
-        let url = "wss://meteor-ios-todos.meteor.com/websocket"
+        let url = "wss://swiftddp-todos.meteor.com/websocket"
         
         Meteor.connect(url) {
             Meteor.subscribe("publicLists")
@@ -42,22 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }
         return false
     }
-    
-    // MARK: - Core Data Saving support
-    /*
-    func saveContext () {
-        if managedObjectContext.hasChanges {
-            do {
-                try managedObjectContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nserror = error as NSError
-                NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
-                abort()
-            }
-        }
-    }*/
 
 
 }
