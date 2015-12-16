@@ -3,6 +3,8 @@ import UIKit
 import SwiftDDP
 import CoreData
 
+let LISTS_SUBSCRIPTION_IS_READY = "LISTS_SUBSCRIPTION_IS_READY"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
@@ -21,15 +23,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // let listViewController = masterNavigationController.topViewController as! Lists
         
         Meteor.client.logLevel = .Debug
-        let url = "wss://swiftddp-todos.meteor.com/websocket"
+        let url = "ws://localhost:3000/websocket"
         
         Meteor.connect(url) {
-            Meteor.subscribe("publicLists")
-            Meteor.subscribe("privateLists")
+            Meteor.subscribe("publicLists") { self.listsSubscriptionIsReady() }
+            Meteor.subscribe("privateLists") { self.listsSubscriptionIsReady() }
         }
         
         print("Application Did Finish Launching")
         return true
+    }
+    
+    func listsSubscriptionIsReady() {
+        print("subscription is ready")
+        NSNotificationCenter.defaultCenter().postNotificationName(LISTS_SUBSCRIPTION_IS_READY, object: nil)
     }
     
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {

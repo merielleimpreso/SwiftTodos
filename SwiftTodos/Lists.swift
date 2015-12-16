@@ -15,6 +15,8 @@ public class ListCell:UITableViewCell {
 
 class Lists: UITableViewController {
     
+    var collection:MeteorCollection = (UIApplication.sharedApplication().delegate as! AppDelegate).lists
+    
     @IBOutlet weak var loginButton: UIBarButtonItem!
     
     @IBAction func loginButtonWasClicked(sender: UIBarButtonItem) {
@@ -23,29 +25,6 @@ class Lists: UITableViewController {
         } else {
             self.performSegueWithIdentifier("loginDialog", sender: self)
         }
-    }
-    
-    var collection:MeteorCollection = (UIApplication.sharedApplication().delegate as! AppDelegate).lists
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        if let _ = Meteor.client.userId() {
-            loginButton.image = UIImage(named: "user_icon_selected")
-        } else {
-            loginButton.image = UIImage(named:"user_icon")
-        }
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        if let _ = Meteor.client.userId() {
-            loginButton.image = UIImage(named: "user_icon_selected")
-        } else {
-            loginButton.image = UIImage(named:"user_icon")
-        }
-
     }
     
     @IBOutlet weak var newListField: UITextField!
@@ -60,6 +39,37 @@ class Lists: UITableViewController {
         }
     }
     
+    override func viewDidLoad() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadTableView", name: METEOR_COLLECTION_SET_DID_CHANGE, object: nil)
+    }
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.reloadData()
+        setUserImage()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+
+    }
+    
+    func reloadTableView() {
+        self.tableView.reloadData()
+    }
+    
+    // Set the user accounts image
+    func setUserImage() {
+        
+        if let _ = Meteor.client.userId() {
+            loginButton.image = UIImage(named: "user_icon_selected")
+        } else {
+            loginButton.image = UIImage(named:"user_icon")
+        }
+        
+    }
     
     func logoutDialog() {
         
@@ -68,14 +78,14 @@ class Lists: UITableViewController {
         
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .ActionSheet)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
-        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in }
         alertController.addAction(cancelAction)
         
         let signOutAction = UIAlertAction(title: "Sign Out", style: .Destructive) { (action) in
             Meteor.logout()
             self.loginButton.image = UIImage(named:"user_icon")
         }
+        
         alertController.addAction(signOutAction)
         
         if let popoverPresentationController = alertController.popoverPresentationController {
@@ -84,11 +94,8 @@ class Lists: UITableViewController {
         
         presentViewController(alertController, animated: true, completion: nil)
     }
-
     
-    func subscriptionReady() {
-        self.tableView.reloadData()
-    }
+    // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -100,11 +107,9 @@ class Lists: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("listCell", forIndexPath: indexPath) as! ListCell
-        
-        let listItem = collection.sorted[indexPath.row]
-        print("Cell -> \(listItem)")
-        cell.textLabel?.text = listItem.valueForKey("name") as? String
-        cell._id = listItem.valueForKey("id") as? String
+        let object = collection.sorted[indexPath.row]
+        cell.textLabel?.text = object.valueForKey("name") as? String
+        cell._id = object.valueForKey("id") as? String
         return cell
     }
     
@@ -118,7 +123,6 @@ class Lists: UITableViewController {
             self.collection.remove(object)
             self.tableView.reloadData()
         }
-
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -135,7 +139,8 @@ class Lists: UITableViewController {
             todosVC.listId = id!
             todosVC.title = cell.textLabel?.text
             
-            if let _ = userId {
+            if let _id = userId where _id != "true" {
+                print("_id -> \(_id)")
                 todosVC.privateButton.image = UIImage(named: "locked_icon")
             } else {
                 todosVC.privateButton.image = UIImage(named: "unlocked_icon")
