@@ -78,7 +78,7 @@ class MeteorCoreDataStackPersisted:NSObject, MeteorCoreDataStack {
     
     lazy var backgroundContext: NSManagedObjectContext = {
         let coordinator = self.persistentStoreCoordinator
-        var context = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
+        var context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         context.persistentStoreCoordinator = coordinator
         context.stalenessInterval = 0
         return context
