@@ -6,4 +6,4 @@ Note that connectivity to Meteor hosted instances of the todos app (*.meteor.com
 
 ```bash meteor create --example todos```
 
-Once you've created and started the Meteor todos server, set the url variable in AppDelegate.swift to wss://localhost:3000/websocket, then run the iOS app.
+Once you've created and started the Meteor todos server, set the url variable in AppDelegate.swift to ws://localhost:3000/websocket, then run the iOS app.
