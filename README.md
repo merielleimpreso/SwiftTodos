@@ -1,4 +1,7 @@
 # SwiftTodos
+
+## Note - this repo is broken as of Meteor 1.3. The iOS code should work, but it was written to work against Meteor's todos example and Meteor has changed its' API.
+
 Meteor Todos created using SwiftDDP with CoreData integration.
 Clone this repo, install SwiftDDP and run!
 
